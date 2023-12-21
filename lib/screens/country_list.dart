@@ -26,7 +26,7 @@ class _CountryListState extends State<CountryList> {
               itemBuilder: (BuildContext, int index) {
                 return const ListTile(
                     leading: CircleAvatar(
-                  backgroundImage: AssetImage('images/india.png'),
+                  backgroundImage: AssetImage('assets/images/india.png'),
                 ));
               }),
         ),
