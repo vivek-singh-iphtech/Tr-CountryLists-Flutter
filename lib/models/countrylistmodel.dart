@@ -3,10 +3,10 @@ class CountryModel {
   final String? image;
   final String? title;
   final String? subtitle;
-  // final String? link;
+  final String? link;
 
 
-  CountryModel({required this.image,this.title,this.subtitle}); //constructor 
+  CountryModel({required this.image,this.title,this.subtitle,this.link}); //constructor 
 
   factory CountryModel.fromJson(Map<String,dynamic> json) //factory method to create the instance of the country model
   {
@@ -14,7 +14,7 @@ class CountryModel {
     image: json['image'],
     title: json['title'],
     subtitle: json['subtitle'],
-    // link:json['link']
+    link:json['link']
 
     );
   }

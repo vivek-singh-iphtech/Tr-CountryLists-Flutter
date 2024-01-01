@@ -1,4 +1,4 @@
-import 'package:country_lists/views/country_list.dart';
+import 'package:country_lists/views/countrylistviews.dart';
 import 'package:flutter/material.dart';
 
 void main() {
