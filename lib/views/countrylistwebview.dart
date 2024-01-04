@@ -5,6 +5,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/favlist_provider.dart';
+
 class WebViewPage extends StatefulWidget {
   final CountryModel? country;
   WebViewPage(this.country);
@@ -53,6 +55,16 @@ class _WebViewPageState extends State<WebViewPage> {
                           onPressed: () {
                             Provider.of<Favorite>(context, listen: false)
                                 .toggleFav(widget.country?.id);
+
+                              FavoriteCartList cart =
+                                          Provider.of<FavoriteCartList>(context,
+                                              listen: false);
+
+                                      if (favorite.isFav(widget.country?.id)) {
+                                        cart.addToCart(widget.country);
+                                      } else {
+                                        cart.removeFromCart(widget.country);
+                                      }
                           },
                         ))),
           ],

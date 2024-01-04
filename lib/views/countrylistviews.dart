@@ -1,9 +1,12 @@
 import 'package:country_lists/controllers/countrylistcontroller.dart';
 import 'package:country_lists/models/countrylistmodel.dart';
 import 'package:country_lists/providers/fav_provider.dart';
+import 'package:country_lists/providers/favlist_provider.dart';
 import 'package:country_lists/views/countrylistwebview.dart';
+import 'package:country_lists/views/favcountryviews.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:badges/badges.dart' as badges;
 
 class CountryList extends StatefulWidget {
   const CountryList({super.key});
@@ -24,6 +27,28 @@ class _CountryListState extends State<CountryList> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 22.0),
+            child: Consumer<FavoriteCartList>(
+              builder: (context, cart, _) => 
+                badges.Badge(
+                  badgeContent: Text('${cart.countryList.length}'),
+                  position: badges.BadgePosition.topEnd(top: -1, end: -1),
+                  child:IconButton(
+                    icon: const Icon(
+                      Icons.shopping_basket_sharp,
+                      color: Color.fromARGB(195, 70, 120, 255),
+                      size: 28,
+                    ),
+                    onPressed: () {
+                      navigateToCartPage();
+                    },
+                  ),
+                )
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -84,6 +109,17 @@ class _CountryListState extends State<CountryList> {
                                       Provider.of<Favorite>(context,
                                               listen: false)
                                           .toggleFav(country?.id);
+
+                                      FavoriteCartList cart =
+                                          Provider.of<FavoriteCartList>(context,
+                                              listen: false);
+
+                                      if (favorite.isFav(country?.id)) {
+                                        cart.addToCart(country);
+                                        
+                                      } else {
+                                        cart.removeFromCart(country);
+                                      }
                                     },
                                   ))),
                     );
@@ -98,5 +134,10 @@ class _CountryListState extends State<CountryList> {
   void _navigateToWebViewPage(CountryModel country) {
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => WebViewPage(country)));
+  }
+
+  void navigateToCartPage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => FavcountryList()));
   }
 }

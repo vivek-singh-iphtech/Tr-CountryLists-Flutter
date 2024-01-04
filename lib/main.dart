@@ -1,4 +1,5 @@
 import 'package:country_lists/providers/fav_provider.dart';
+import 'package:country_lists/providers/favlist_provider.dart';
 import 'package:country_lists/views/countrylistviews.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<Favorite>(create: (_) => Favorite()),
+        ChangeNotifierProvider<FavoriteCartList>(create: (_) => FavoriteCartList()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
